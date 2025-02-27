@@ -214,7 +214,6 @@ Below is an example of how you might execute the above query using a PDO instanc
  } else {
      echo "User does NOT have the SendMessages permission.";
  }
- ?>
  ```
 
 ## API Reference
