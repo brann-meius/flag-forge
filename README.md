@@ -1,5 +1,7 @@
 # Flag Forge Package
 
+[![Build Status](https://img.shields.io/github/actions/workflow/status/brann-meius/flag-forge/ci.yml)](https://github.com/brann-meius/flag-forge/actions)
+[![codecov](https://codecov.io/gh/brann-meius/flag-forge/graph/badge.svg?token=0XH7AAKHS2)](https://codecov.io/gh/brann-meius/flag-forge)
 [![License](https://img.shields.io/github/license/brann-meius/flag-forge)](LICENSE)
 [![PHP Version](https://img.shields.io/badge/php-%3E%3D%208.1-blue)](https://www.php.net/)
 
