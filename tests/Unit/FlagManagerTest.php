@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Meius\LaravelFilter\Tests\Unit;
 
 use Meius\LaravelFilter\Tests\Support\Permission;
+use Meius\LaravelFilter\Tests\Support\XPermission;
 use PHPUnit\Framework\TestCase;
 use Meius\FlagForge\FlagManager;
 
@@ -106,6 +107,9 @@ final class FlagManagerTest extends TestCase
         $this->assertFalse($manager->has(Permission::DeleteMessages));
         $this->assertTrue($manager->doesntHave(Permission::DeleteMessages));
         $this->assertFalse($manager->doesntHave(Permission::SendMessages));
+
+        $this->assertFalse($manager->has(XPermission::InstallFile));
+        $this->assertTrue($manager->doesntHave(XPermission::InstallFile));
     }
 
     public function testIteratorAndToArray(): void
@@ -135,5 +139,43 @@ final class FlagManagerTest extends TestCase
 
         $this->assertInstanceOf(FlagManager::class, $unserializedManager);
         $this->assertSame($manager->getMask(), $unserializedManager->getMask());
+    }
+
+    public function testPrintable(): void
+    {
+        $manager = new FlagManager();
+        $manager->add(Permission::SendMessages)
+            ->add(Permission::AddUsers);
+        $this->assertSame('5', (string)$manager);
+
+        $manager->toggle(
+            Permission::SendMessages,
+            Permission::DeleteMessages,
+            Permission::AddUsers,
+            Permission::RemoveUsers
+        );
+        $this->assertSame('10', (string)$manager);
+
+        $manager->clear();
+        $this->assertSame('0', (string)$manager);
+
+        $manager->add(Permission::SendMessages)
+            ->add(Permission::AddUsers)
+            ->add(Permission::PinMessages);
+        $this->assertSame('21', (string)$manager);
+    }
+
+    public function testJsonSerialize(): void
+    {
+        $manager = new FlagManager();
+        $manager->add(Permission::SendMessages)
+            ->add(Permission::AddUsers);
+
+        $this->assertSame(json_encode($manager->jsonSerialize()), json_encode($manager));
+        $this->assertSame($manager->jsonSerialize()['enum'], Permission::class);
+        $this->assertSame($manager->jsonSerialize()['flags'], [
+            Permission::SendMessages->value,
+            2 => Permission::AddUsers->value
+        ]);
     }
 }
