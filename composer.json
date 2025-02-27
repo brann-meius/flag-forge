@@ -1,0 +1,46 @@
+{
+  "name": "meius/flag-forge",
+  "description": "FlagForge is a lightweight, high-performance library for bitwise enumerations. It offers intuitive tools to create, combine, and verify flags for efficient management of Boolean states in applications—ideal for access control, configuration options, and scenarios demanding compact storage and fast processing.",
+  "keywords": [
+    "bitwise",
+    "enumeration",
+    "flags",
+    "bitwise-operations",
+    "enums",
+    "performance",
+    "efficiency",
+    "configuration"
+  ],
+  "type": "library",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "Meius\\FlagForge\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Meius\\LaravelFilter\\Tests\\": "tests/"
+    }
+  },
+  "scripts": {
+    "test": "phpunit",
+    "cs": "phpcs --standard=phpcs.xml"
+  },
+  "authors": [
+    {
+      "name": "Bohdan Meius",
+      "email": "bohdan.meius@gmail.com"
+    }
+  ],
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "require": {
+    "php": ">=8.1"
+  },
+  "require-dev": {
+    "phpstan/phpstan": "^2.0",
+    "phpunit/phpunit": "^10",
+    "squizlabs/php_codesniffer": "^3.0"
+  }
+}
