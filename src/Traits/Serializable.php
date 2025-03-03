@@ -20,17 +20,11 @@ trait Serializable
      */
     public function unserialize(string $data): void
     {
-        $decoded = json_decode(
+        $this->__unserialize(json_decode(
             json: $data,
             associative: true,
             flags: JSON_THROW_ON_ERROR
-        );
-
-        if (!is_array($decoded)) {
-            throw new UnexpectedValueException('Invalid serialized data.');
-        }
-
-        $this->__unserialize($decoded);
+        ));
     }
 
     public function jsonSerialize(): array
