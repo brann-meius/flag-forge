@@ -20,7 +20,7 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "Meius\\LaravelFilter\\Tests\\": "tests/"
+      "Meius\\FlagForge\\Tests\\": "tests/"
     }
   },
   "scripts": {
