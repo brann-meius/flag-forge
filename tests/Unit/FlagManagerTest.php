@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Meius\LaravelFilter\Tests\Unit;
+namespace Meius\FlagForge\Tests\Unit;
 
 use Exception;
 use InvalidArgumentException;
 use JsonException;
-use Meius\LaravelFilter\Tests\Support\GroupType;
-use Meius\LaravelFilter\Tests\Support\Permission;
-use Meius\LaravelFilter\Tests\Support\PrehistoricEnum;
-use Meius\LaravelFilter\Tests\Support\XPermission;
+use Meius\FlagForge\Tests\Support\GroupType;
+use Meius\FlagForge\Tests\Support\Permission;
+use Meius\FlagForge\Tests\Support\PrehistoricEnum;
+use Meius\FlagForge\Tests\Support\XPermission;
 use PHPUnit\Framework\TestCase;
 use Meius\FlagForge\FlagManager;
 use UnexpectedValueException;
