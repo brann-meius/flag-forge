@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Meius\LaravelFilter\Tests\Support;
+namespace Meius\FlagForge\Tests\Support;
 
 use Meius\FlagForge\Contracts\Bitwiseable;
 
