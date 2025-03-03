@@ -4,10 +4,16 @@ declare(strict_types=1);
 
 namespace Meius\LaravelFilter\Tests\Unit;
 
+use Exception;
+use InvalidArgumentException;
+use JsonException;
+use Meius\LaravelFilter\Tests\Support\GroupType;
 use Meius\LaravelFilter\Tests\Support\Permission;
+use Meius\LaravelFilter\Tests\Support\PrehistoricEnum;
 use Meius\LaravelFilter\Tests\Support\XPermission;
 use PHPUnit\Framework\TestCase;
 use Meius\FlagForge\FlagManager;
+use UnexpectedValueException;
 
 /**
  * This test suite covers the basic functionalities of the FlagManager class:
@@ -45,6 +51,17 @@ final class FlagManagerTest extends TestCase
         $manager->add(Permission::SendMessages)
             ->add(Permission::SendMessages);
         $this->assertSame(1, $manager->getMask());
+    }
+
+    public function testAddFlagFromAnotherEnum(): void
+    {
+        $manager = new FlagManager();
+        $manager->add(Permission::SendMessages);
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('The provided flag is not part of the current enum.');
+
+        $manager->add(XPermission::InstallFile);
     }
 
     public function testRemoveFlag(): void
@@ -139,6 +156,84 @@ final class FlagManagerTest extends TestCase
 
         $this->assertInstanceOf(FlagManager::class, $unserializedManager);
         $this->assertSame($manager->getMask(), $unserializedManager->getMask());
+    }
+
+    /**
+     * @throws JsonException
+     */
+    public function testUnserializeExcludingEnum(): void
+    {
+        $manager = new FlagManager();
+
+        $this->expectException(UnexpectedValueException::class);
+        $this->expectExceptionMessage('Invalid unserialized data.');
+        $manager->unserialize(json_encode([
+            'flags' => [Permission::SendMessages, Permission::AddUsers]
+        ]));
+    }
+
+    /**
+     * @throws JsonException
+     */
+    public function testUnserializeExcludingFlags(): void
+    {
+        $manager = new FlagManager();
+
+        $this->expectException(UnexpectedValueException::class);
+        $this->expectExceptionMessage('Invalid unserialized data.');
+        $manager->unserialize(json_encode([
+            'enum' => Permission::class,
+        ]));
+    }
+
+    /**
+     * @throws JsonException
+     */
+    public function testUnserializeNonBitwiseEnumClass(): void
+    {
+        $manager = new FlagManager();
+
+        $this->expectException(UnexpectedValueException::class);
+        $this->expectExceptionMessage("Invalid enum class: " . GroupType::class);
+        $manager->unserialize(json_encode([
+            'enum' => GroupType::class,
+            'flags' => [GroupType::Private, GroupType::Group]
+        ]));
+    }
+
+    /**
+     * @throws JsonException
+     */
+    public function testUnserializeNonEnumClass(): void
+    {
+        $manager = new FlagManager();
+
+        $this->expectException(UnexpectedValueException::class);
+        $this->expectExceptionMessage("Invalid enum class: " . PrehistoricEnum::class);
+        $manager->unserialize(json_encode([
+            'enum' => PrehistoricEnum::class,
+            'flags' => [PrehistoricEnum::BOUNTY, PrehistoricEnum::TWIX]
+        ]));
+    }
+
+    /**
+     * @throws JsonException
+     * @throws Exception
+     */
+    public function testUnserializeWithBrokenMask(): void
+    {
+        $manager = new FlagManager();
+        $manager->add(Permission::SendMessages)
+            ->add(Permission::AddUsers);
+        $serialized = $manager->serialize();
+        $serializedArray = json_decode($serialized, true);
+        $serializedArray['flags'][] = 1 << 32;
+        $broken = json_encode($serializedArray);
+
+        $this->expectException(UnexpectedValueException::class);
+        $this->expectExceptionMessage('Invalid flag value ' . 1 << 32 . ' for enum ' . Permission::class);
+
+        $manager->unserialize($broken);
     }
 
     public function testPrintable(): void

@@ -104,7 +104,7 @@ class FlagManager implements ManagerContract, Serializable, JsonSerializable, It
 
         foreach ($flags as $flag) {
             if (!$this->isValid($flag)) {
-                throw new \InvalidArgumentException('Invalid flag provided.');
+                throw new \InvalidArgumentException('The provided flag is not part of the current enum.');
             }
         }
 
