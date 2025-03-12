@@ -221,7 +221,7 @@ Below is an example of how you might execute the above query using a PDO instanc
 
 ## API Reference
 
-**FlagManager**
+### FlagManager
 
 - `add(Bitwiseable $flag): self` — Adds a flag to the current mask.
 - `remove(Bitwiseable $flag): self` — Removes a flag from the current mask.
