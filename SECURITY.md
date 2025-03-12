@@ -20,8 +20,8 @@ guidelines:
     - The impact of the vulnerability
     - Any supporting code or logs, if applicable
 
-3. **Report Securely:** Send your report via email at **bohdan.meius@gmail.com**. Please include "Security Vulnerability
-   Report" in the subject line.
+3. **Report Securely:** Send your report via email at [**bohdan.meius@gmail.com**](mailto:bohdan.meius@gmail.com).
+   Please include "Security Vulnerability Report" in the subject line.
 
 ## Our Commitment
 
