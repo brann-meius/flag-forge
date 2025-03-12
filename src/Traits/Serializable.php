@@ -6,8 +6,18 @@ namespace Meius\FlagForge\Traits;
 
 use JsonException;
 use Meius\FlagForge\Contracts\Bitwiseable;
+use Meius\FlagForge\FlagManager;
 use UnexpectedValueException;
 
+/**
+ * Provides default JSON serialization and deserialization methods.
+ *
+ * This trait implements `serialize()`, `unserialize()`, `jsonSerialize()`,
+ * `__serialize()`, and `__unserialize()` to handle JSON-based conversion of the object.
+ * It serializes the object's `enum` and active flags, and reconstructs them during unserialization.
+ *
+ * @mixin FlagManager
+ */
 trait Serializable
 {
     public function serialize(): string
