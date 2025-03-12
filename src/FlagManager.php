@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Meius\FlagForge;
 
 use Closure;
+use InvalidArgumentException;
 use IteratorAggregate;
 use JsonSerializable;
 use Meius\FlagForge\Contracts\Arrayable;
@@ -104,7 +105,7 @@ class FlagManager implements ManagerContract, Serializable, JsonSerializable, It
 
         foreach ($flags as $flag) {
             if (!$this->isValid($flag)) {
-                throw new \InvalidArgumentException('The provided flag is not part of the current enum.');
+                throw new InvalidArgumentException('The provided flag is not part of the current enum.');
             }
         }
 
