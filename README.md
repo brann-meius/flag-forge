@@ -2,6 +2,7 @@
 
 [![Build Status](https://img.shields.io/github/actions/workflow/status/brann-meius/flag-forge/ci.yml)](https://github.com/brann-meius/flag-forge/actions)
 [![codecov](https://codecov.io/gh/brann-meius/flag-forge/graph/badge.svg?token=0XH7AAKHS2)](https://codecov.io/gh/brann-meius/flag-forge)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/d6238aceb07d402f8742d4b0597a5ba7)](https://app.codacy.com/gh/brann-meius/flag-forge/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 [![License](https://img.shields.io/github/license/brann-meius/flag-forge)](LICENSE)
 [![PHP Version](https://img.shields.io/badge/php-%3E%3D%208.1-blue)](https://www.php.net/)
 
@@ -12,12 +13,12 @@
 - [Getting Started](#getting-started)
 - [Installation](#installation)
 - [Usage](#usage)
-   - [Working with FlagManager](#working-with-flagmanager)
+  - [Working with FlagManager](#working-with-flagmanager)
 - [Database Integration Example](#database-integration-example)
-   - [Table Schema: chat_user](#table-schema-chat_user)
-   - [Sample Records](#sample-records)
-   - [Example Query: Checking a Specific Permission](#example-query-checking-a-specific-permission)
-   - [Example PHP Code Using PDO](#example-php-code-using-pdo)
+  - [Table Schema: chat_user](#table-schema-chat_user)
+  - [Sample Records](#sample-records)
+  - [Example Query: Checking a Specific Permission](#example-query-checking-a-specific-permission)
+  - [Example PHP Code Using PDO](#example-php-code-using-pdo)
 - [API Reference](#api-reference)
 - [Support](#support)
 - [License](#license)
@@ -30,7 +31,7 @@ efficiently check individual flags using simple methods.
 
 ## Requirements
 
-- PHP \>= 8.1
+- PHP >= 8.1
 
 ## Getting Started
 
@@ -144,12 +145,12 @@ provides a few sample records, and shows an example of how to query the database
 
 ### Table Schema: chat_user
 
-| Column       | Data Type            | Constraints            | Description                            |
-|--------------|----------------------|------------------------|----------------------------------------|
-| id           | UUID                 | PRIMARY KEY            | Unique identifier for the record.      |
-| chat_id      | UUID                 | FOREIGN KEY, NOT NULL  | Identifier of the chat.                |
-| user_id      | UUID                 | FOREIGN KEY, NOT NULL  | Identifier of the user.                |
-| permissions  | UNSIGNED TINYINT     | NOT NULL, DEFAULT (17) | Bitmask representing user permissions. |
+| Column      | Data Type        | Constraints            | Description                            |
+|-------------|------------------|------------------------|----------------------------------------|
+| id          | UUID             | PRIMARY KEY            | Unique identifier for the record.      |
+| chat_id     | UUID             | FOREIGN KEY, NOT NULL  | Identifier of the chat.                |
+| user_id     | UUID             | FOREIGN KEY, NOT NULL  | Identifier of the user.                |
+| permissions | UNSIGNED TINYINT | NOT NULL, DEFAULT (17) | Bitmask representing user permissions. |
 
 ### Sample Records
 
